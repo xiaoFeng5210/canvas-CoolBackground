@@ -22,6 +22,9 @@
   top: 0;
   left: 0;
   background: #fe5757;
+  animation: colorChange 30s ease-in-out infinite;
+  animation-fill-mode: both;
+  mix-blend-mode: overlay;
 }
 
 @keyframes colorChange {
