@@ -50,6 +50,22 @@
         content.closePath();
         content.fill();
       };
+      // move函数
+      Round_item.prototype.move = function () {
+        this.y -= 0.15;
+        if (this.y <= -10) {
+          this.y = HEIGHT + 10;
+        }
+        this.draw();
+      };
+      // 动画函数,使用 requestAnimationFrame() 函数递归的调用 animate()
+      function animate() {
+        content.clearRect(0, 0, WIDTH, HEIGHT);
+        for (var i in round) {
+          round[i].move();
+        }
+        requestAnimationFrame(animate);
+      }
       // 初始化,根据个数遍历来画圆
       function init() {
         for (var i = 0; i < initRoundPopulation; i++) {
@@ -60,6 +76,7 @@
           );
           round[i].draw();
         }
+        animate();
       }
 
       init();
