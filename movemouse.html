@@ -33,6 +33,56 @@
         color,
         color2,
         round_arr = []; // 存放圆的数组
+
+      function animate() {
+        if (!para.color) {
+          color += 0.1;
+          color2 = "hsl(" + color + ",100%,80%)";
+        }
+
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+        for (var i = 0; i < round_arr.length; i++) {
+          ctx.fillStyle = color2;
+          ctx.beginPath();
+          ctx.arc(
+            round_arr[i].mouseX,
+            round_arr[i].mouseY,
+            round_arr[i].r,
+            0,
+            Math.PI * 2
+          );
+          ctx.closePath();
+          ctx.fill();
+          round_arr[i].r += para.r;
+          round_arr[i].o -= para.o;
+          if (round_arr[i].o <= 0) {
+            round_arr.splice(i, 1);
+            i--;
+          }
+        }
+        window.requestAnimationFrame(animate);
+      }
+
+      window.onmousemove = function (event) {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+
+        round_arr.push({
+          mouseX: mouseX,
+          mouseY: mouseY,
+          r: para.r, // 设置半径每次增大的数值
+          o: 1,
+        });
+      };
+
+      if (para.color) {
+        color2 = para.color;
+      } else {
+        color = Math.random() * 360;
+      }
+
+      animate();
     </script>
   </body>
 </html>
